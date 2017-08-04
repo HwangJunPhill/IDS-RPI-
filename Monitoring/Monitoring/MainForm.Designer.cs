@@ -316,13 +316,15 @@
             chartArea1.Name = "ChartArea1";
             this.chart.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
+            legend1.Title = "센서별 침입 빈도";
             this.chart.Legends.Add(legend1);
             this.chart.Location = new System.Drawing.Point(763, 227);
             this.chart.Name = "chart";
             this.chart.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Excel;
             series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Pie;
             series1.Legend = "Legend1";
-            series1.Name = "Series1";
+            series1.Name = "series1";
             this.chart.Series.Add(series1);
             this.chart.Size = new System.Drawing.Size(544, 362);
             this.chart.TabIndex = 1;

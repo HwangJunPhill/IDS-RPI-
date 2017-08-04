@@ -13,7 +13,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using MySql.Data.MySqlClient;
-
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Monitoring
 {
@@ -34,7 +34,8 @@ namespace Monitoring
 
         private bool isMove;
         Point labelPoint;
-
+        
+        private DataSet data;
         Connection db;
 
         public MainForm()
@@ -57,6 +58,32 @@ namespace Monitoring
 
             //Thread getThread = new Thread(new ThreadStart(getPacket));
             //getThread.Start();
+
+            drawChart();
+
+            lastInsLabel.Text = "2017-08-04 10:06:37";
+
+        }
+
+        private void drawChart()
+        {
+            string query;
+            for (int i = 1; i < 9; i++)
+            {
+                query = string.Format("select count(*) from log where sensorid = {0} and isIn = \"YES\"", i);
+                data = db.SelectData(query);
+
+                if (data.Tables.Count > 0)
+                {
+                    foreach (DataRow r in data.Tables[0].Rows)
+                    {
+                        double b = Convert.ToDouble(r.ItemArray[0]);
+                        chart.Series["series1"].Points.Add(b);
+                    }
+                }
+            }
+
+
         }
 
         private void setLabels()
